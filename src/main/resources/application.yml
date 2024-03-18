@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: taskmaster
+  datasource:
+    url: jdbc:mysql://localhost:13306/taskmaster_db
+    # usernameは一般ユーザを作成するためのものだから、rootにはできない。
+    username: taskmaster
+    password: taskmaster
+    # Mysql's JDBC Driver is already installed when this project made by initializr.
+    driver-class-name: com.mysql.cj.jdbc.Driver
