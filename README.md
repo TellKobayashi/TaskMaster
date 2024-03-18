@@ -3,9 +3,9 @@ TaskMaster is the task-manager that is effected by Backlog.
 
 ## Latest goal
 * to configure local environment.
- [x] docker
- [x] bootRun
- [ ] DB migration 
+- [x] docker
+- [x] bootRun
+- [ ] DB migration 
 
 # Environment
 Plz check `build.gradle.kts`.Thank u.
