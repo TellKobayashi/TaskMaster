@@ -6,8 +6,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: taskmaster_db
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
+      MYSQL_USER: taskmaster
+      MYSQL_PASSWORD: taskmaster
       TZ: 'Asia/Tokyo'
     volumes:
       - ./files/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
@@ -20,8 +20,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: taskmaster_db
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
+      MYSQL_USER: taskmaster
+      MYSQL_PASSWORD: taskmaster
       TZ: 'Asia/Tokyo'
     volumes:
       - ./files/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
