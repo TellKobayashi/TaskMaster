@@ -17,7 +17,19 @@ plugins {
 	// gitのタグでバージョン管理するプラグインの中ではアンパイかなと。長期間アップデートが入っていないのは心配。
 	id("com.palantir.git-version") version "3.0.0"
 	// ローカルでapiを叩く用のDBマイグレーション用
-	id("org.flywaydb.flyway") version "10.10.0"
+	id("org.flywaydb.flyway") version "9.4.0"
+}
+
+// flywayの設定に必要。これがないとflywayがdbに接続できない。
+// https://qiita.com/wb773/items/ca85cf05c90c3037ed25
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.flywaydb:flyway-mysql:8.3.0")
+		classpath("mysql:mysql-connector-java:8.0.32")
+	}
 }
 
 // gradleの設定わからんすぎて禿げそう。実装に入る前の環境設定が鬼難易度で苦しい。
@@ -68,8 +80,8 @@ dependencies {
 	testImplementation("org.springframework.security:spring-security-test")
 
 	// 個人の判断で入れたやつ。
-	// mockito。モック。
-	testImplementation("org.mockito.kotlin:mockito-kotlin:5.3.0")
+	// mockito。モック。最新の5.3.0はnotfoundとなったので古いものを入れている。
+	testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
 	// こいつはpluginsで導入済みなので入れなくていい。
 	// implementation("org.springframework.boot:spring-boot-gradle-plugin:3.2.3")
 	implementation("org.jetbrains.kotlin:kotlin-gradle-plugin")
@@ -90,6 +102,10 @@ tasks.withType<Test> {
 	useJUnitPlatform()
 }
 
-//// 必要になったら設定する、今はわからん。 "ToDoあとでfix"とかいうコメントマジで殺してやろうかと思う。
-//flyway {
-//}
+// flywayが接続するためのDB情報
+// DDLはresources/db/migration/配下に書く。
+flyway {
+	url = "jdbc:mysql://127.0.0.1:13306/taskmaster_db"
+	user = "taskmaster"
+	password = "taskmaster"
+}
