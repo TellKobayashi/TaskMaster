@@ -1,0 +1,30 @@
+# 正直traffic counter の見様見真似、意味はよくわかっていない。
+services:
+  tm-db:
+    image: mysql:8
+    container_name: tm-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: taskmaster_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      TZ: 'Asia/Tokyo'
+    volumes:
+      - ./files/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    ports:
+      - "13306:3306"
+
+  tm-test-db:
+    image: mysql:8
+    container_name: tm-test-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: taskmaster_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      TZ: 'Asia/Tokyo'
+    volumes:
+      - ./files/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    ports:
+      - "23306:3306"
+
