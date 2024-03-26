@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: taskmaster
+  datasource:
+    url: jdbc:mysql://localhost:23306/taskmaster_db
+    # usernameは一般ユーザを作成するためのものだから、rootにはできない。
+    username: taskmaster
+    password: taskmaster
+    # Mysql's JDBC Driver is already installed when this project made by initializr.
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      connection-test-query: SELECT 1
+      maximum-pool-size: 2
+      minimym-idle: 10
+      leak-detection-threshold: 120000
+    jackson:
+      time-zone: Asia/Tokyo
+    jpa:
+      hibernate:
+        ddl-auto: none

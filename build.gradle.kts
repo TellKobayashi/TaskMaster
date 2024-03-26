@@ -51,11 +51,11 @@ java {
 
 // dependency-managementプラグインの機能。対応したバージョンのプラグインを入れてくれる。
 // BOMという機能らしいが、railsでは標準機能だったような気がする。クソ便利。
-dependencyManagement {
-	imports {
-		mavenBom("org.junit:junit-bom:5.4.2")
-	}
-}
+//dependencyManagement {
+//	imports {
+//		mavenBom("org.junit:junit-bom:5.4.2")
+//	}
+//}
 
 // プロジェクトの記述に必要なライブラリの依存関係
 dependencies {
@@ -86,6 +86,10 @@ dependencies {
 	// implementation("org.springframework.boot:spring-boot-gradle-plugin:3.2.3")
 	implementation("org.jetbrains.kotlin:kotlin-gradle-plugin")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
+	// beansへのvalidationを増やす。
+	implementation("org.springframework.boot:spring-boot-starter-validation")
+	testImplementation("org.dbunit:dbunit:2.7.3")
+	testImplementation("com.github.springtestdbunit:spring-test-dbunit:1.3.0")
 }
 
 
@@ -105,7 +109,14 @@ tasks.withType<Test> {
 // flywayが接続するためのDB情報
 // DDLはresources/db/migration/配下に書く。
 flyway {
-	url = "jdbc:mysql://127.0.0.1:13306/taskmaster_db"
+	url = "jdbc:mysql://localhost:13306/taskmaster_db"
 	user = "taskmaster"
 	password = "taskmaster"
+
+	cleanDisabled = false
+	tasks.register<org.flywaydb.gradle.task.FlywayMigrateTask>("TestDBMigrate") {
+		url = "jdbc:mysql://localhost:23306/taskmaster_db"
+		user = "taskmaster"
+		password = "taskmaster"
+	}
 }
